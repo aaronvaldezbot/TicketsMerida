@@ -15,77 +15,81 @@
     {
       "sisu": "Sistema Integral de Contabilidad (SIGG)",
       "tfs": "Contabilidad",
-      "modulossisu": [ "Administrador de Catálogos", "Administrador de Procesos", "Administrador de Reportes", "Base de Conocimientos", "Cierres Contables", "Clasificador de Rubro de Ingresos", "Conciliación Bancaria", "Configuración de Reportes Financieros", "Cuentas Presupuestales", ],
-      "modulostfs": [ "Administrador de Catálogos", "", ""]
+      "modulossisu": [ "Administrador de Catálogos", "Administrador de Procesos", "Administrador de Reportes", "Base de Conocimientos", "Cierres Contables", "Clasificador de Rubro de Ingresos", "Conciliación Bancaria", "Configuración de Reportes Financieros", "Cuentas Presupuestales", "Módulo de Pólizas", "Opciones del Sistema", "Otro", "Plan de Cuentas", "Pólizas", "Reportes Financieros","Visor de Reportes"],
+      "modulostfs": [ "Administrador de Catálogos", "otro", "Administrador de Reportes", "otro", "Cierres Contables", "Clasificador Rubro de Ingresos", "Conciliación Bancaria", "otro", "Cuentas Presupuestales", "otro", "otro", "otro", "Plan de Cuentas", "Pólizas", "Reportes Financieros", "Visor de Reportes" ]
     },
     {
-      "sisu": "Sistema Integral de Control Vehicular (SIGG)",
+      "sisu": "Sistema Integral de Control Vehicular (SIGG)", 
       "tfs": "Control Vehicular",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administrador de Catálogos", "Administrador de Reportes", "Módulo de Garantías", "Opciones del Sistema", "Otro", "Seguros y Siniestros", "Solicitud de Mantenimiento Vehicular", "Solicitud y Asignación de Combustible", "Visor de Reportes del Sistema" ],
+      "modulostfs": ["Administrador de Catálogos", "Administrador de Reportes", "Garantías", "otro", "otro", "Seguros y Siniestros", "Solicitud de Mantenimiento", "Solicitud y Asignación de Combustible", "Visor de Reportes" ]
     },
     {
       "sisu": "Sistema Integral de Deuda Pública (SIGG)",
       "tfs": "Deuda Pública",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administrador de Catálogos", "Administrador de Padrones", "Configuración de la Deuda Pública", "Configuración del Sistema", "Otro", "Restructuración de la Deuda", "Seguimiento de la Deuda Pública" ],
+      "modulostfs": ["Administrador de Catálogos", "otro", "Configuración de la Deuda", "otro", "otro", "Reestructuración de la Deuda", "Seguimiento de la Deuda"]
     },
     {
       "sisu": "Sistema Integral de Egresos (SIGG)",
       "tfs": "Egresos",
       "modulossisu": [ "Administrador de Cajas", "Administrador de Catálogos", "Administrador de Procesos", "Administrador de Reportes", "Autorización de Pagos", "Base de Conocimientos", "Comisiones", "Configuración de Layouts de Dispersión", "Cuentas de Retención", "Cuentas por Pagar", "Emisión de Pagos", "Opciones del Sistema", "Otro", "Participaciones a Comisarías", "Políticas de Fondos Fijos", "Visor de Reportes" ],
-      "modulostfs": ["Administrador de Cajas", "Administrador de Catálogos", "Otro", "Administrador de Reportes", "Autorización de Pagos", "Otro", "Comisiones", "Configuración de Layouts de Dispersión", "Configuración de Cuentas de Retención", "Cuentas Por Pagar", "Emisión de Pagos", "Otro", "Participaciones a Municipios", "Politicas de Fondos Fijos", "Visor de Reportes"]
+      "modulostfs": ["Administrador de Cajas", "Administrador de Catálogos", "Otro", "Administrador de Reportes", "Autorización de Pagos", "Otro", "Comisiones", "Configuración de Layouts de Dispersión", "Configuración de Cuentas de Retención", "Cuentas Por Pagar", "Emisión de Pagos", "Otro", "otro", "Participaciones a Municipios", "Politicas de Fondos Fijos", "Visor de Reportes"]
     },
     {
       "sisu": "Sistema Integral de Ingresos (SIGG)",
       "tfs": "Ingresos",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administrador de Cajas", "Administrador de Catálogos", "Administrador de Fórmulas", "Administrador de Padrón de Personas", "Administrador de Padrones", "Administrador de Plantillas de Captura", "Administrador de Procesos", "Administrador de Reportes", "Base de Conocimientos", "Conceptos de Ingresos", "Configuración de Padrones", "Control de Obligaciones", "Generador de Oficios de Ingresos", "Importación de Pagos", "Opciones del Sistema", "Otro", "Programas de Apoyo", "Recaudación", "Visor de Reportes"],
+      "modulostfs": ["Administrador de Cajas", "Administrador de Catálogos", "Administrador de Fórmulas", "otro", "Administrador de Padrones", "Administrador de Plantillas de Captura", "otro", "Administrador de Reportes", "otro", "Conceptos de Ingresos", "Configuración de Padrones", "Control de Obligaciones", "otro", "Importación de Pagos", "otro", "otro", "Programas de Apoyo", "Recaudación", "Visor de Reportes"]
 
     },
     {
       "sisu": "Sistema Integral de Planeación e Indicadores (SIGG)",
       "tfs": "Planeación",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Actividad Institucional", "Administrador de Catálogos", "Administrador de Fórmulas", "Administrador de Indicadores", "Administrador de Procesos", "Administrador de Proyectos", "Administrador de Reportes", "Base de Conocimientos", "Clasificación Funcional", "Grupo y Tipo de Obra", "Modificación de Proyectos", "Opciones del Sistema", "Otro", "Plan de Desarrollo", "Rendición de Cuentas", "Seguimiento de Proyectos", "Visor de Reportes"],
+      "modulostfs": ["Administrador de Actividades Institucionales", "Administrador de Catálogos", "Administrador de Formulas", "otro", "otro", "Administrador de Proyectos", "Administrador de Reportes", "otro", "otro", "Administrador de Grupos y Tipos de Obra", "Administrador de Modificaciónes de Proyectos", "otro", "otro", "otro", "Rendición de Cuentas", "Seguimiento de Proyectos", "Visor de Reportes" ]
     },
     {
       "sisu": "Sistema Integral de Recursos Humanos (SIGG)",
       "tfs": "Recursos Humanos",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administrador de Catálogos", "Administrador de Empleados", "Administrador de Padrones", "Administrador de Procesos", "Administrador de Reportes", "Apoyos", "Beneficiarios", "Bolsa de Trabajo", "Capacitación de Personal", "Empleados", "Entrevistas", "Evaluación del Desempeño", "Jubilaciones y Pensiones", "Licencias y Reincorporaciones", "Movimientos de Personal", "Opciones del Sistema", "Organigrama", "Otro", "Padrones", "Perfiles de Puesto", "Plazas", "Prestadores de Servicios", "Préstamos y Descuentos", "Reportes", "Requisiciones de Personal", "Requisiciones de Prestadores de Servicio", "Servicios Médicos", "Tabulador de Puestos", "Visor de Reportes"],
+      "modulostfs": ["Administrador de Catálogos", "Administrador de Empleados", "otro", "otro", "Administrador de Reportes", "Apoyos", "Beneficiarios", "Bolsa de Trabajo", "Capacitación de Personal", "Empleados", "Entrevistas", "Evaluación de Desempeño", "Jubilaciones y Pensiones", "Licencias y Reincoporaciones", "Movimientos de Personal", "otro", "Organigrama", "otro", "Padrones", "Perfiles de Puesto", "Plazas", "Prestadores de Servicios", "Préstamos y Descuentos", "otro", "Requisiciones de Personal", "Requisiciones de Prestadores de Servicio", "Servicios Médicos", "Tabulador de Puestos", "Visor de Reportes" ]
     },
     {
       "sisu": "Sistema Integral de Seguridad (SIGG)",
       "tfs": "Seguridad",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administrador de Catálogos", "Administrador de Padrón de Personas", "Administrador de Perfiles", "Administrador de Procesos", "Administrador de Reportes", "Administrador de Sistemas", "Administrador de Usuarios",  "Bitácora del Sistema", "Opciones del Sistema", "Otro", "Unidades Responsables" ],
+      "modulostfs": ["Administrador de Catálogos", "Administrador de Padrones", "Administrador de Perfiles", "otro", "Administrador de Reportes", "Administrador de Sistemas", "Administrador de Usuarios", "Administrador de Bitacora", "otro", "otro", "Administrador de Unidades Administrativas"]
     },
     {
       "sisu": "Sistema Integral de Control de Asistencia (SIGG)",
       "tfs": "Control de Asistencia",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administrador de Catálogos", "Administrador de Dispositivos Biométricos", "Administrador de Entradas y Salidas", "Administrador de Excepciones y Vacaciones", "Administrador de Incidencias del Personal", "Administrador de Procesos", "Administrador de Reportes", "Administrador de Turnos", "Opciones del Sistema", "Otro", "Reportes"],
+      "modulostfs": ["Administrador de Catálogos", "Administrador de Dispositivos Biometricos", "Administrador de Entradas y Salidas", "Administrador de Excepciones y Vacaciones", "Administrador de Incidencias del Personal", "Administrador de Reportes", "Administrador de Turnos", "otro", "otro", "Visor de Reportes"]
     },
     {
       "sisu": "Sistema Integral de Nómina (SIGG)",
       "tfs": "Nómina",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administrador de Catálogos", "Administrador de Documentos", "Administrador de Procesos", "Administrador de Reportes", "Cálculo de Impuesto", "Centros de Trabajo", "Conceptos Adicionales", "Configuración de la Nómina", "Configuración de Layouts", "Indemnizaciones y Finiquitos", "Layouts para la Federación", "Opciones del Sistema", "Otro", "Percepciones y Deducciones", "Procesamiento de Nómina", "Reintegros y Devoluciones de Sueldo", "Visor de Reportes"],
+      "modulostfs": ["Administrador de Catálogos", "otro", "otro", "Administrador de Reportes", "Cálculo de Impuesto", "Centros de Trabajo", "Conceptos Adicionales", "Configuración de la Nómina", "Configuración de Layouts", "Indemnizaciones y Finiquitos", "Layouts para la Federación", "otro", "otro", "Percepciones y Deducciones", "Procesamiento de Nómina", "Reintegros y Devoluciones de Sueldo", "Visor de Reportes"]
     },
     {
       "sisu": "Sistema Integral de Presupuestos (SIGG)",
       "tfs": "Presupuestos",
-      "modulossisu": [],
-      "modulostfs": []
+      "modulossisu": ["Administración de POA", "Administrador de Catálogos", "Administrador de Procesos", "Administrador de Reportes", "Ajustes Presupuestales", "Auxiliar de Ingresos", "Auxiliar Presupuestal", "Base de Conocimientos", "Catálogo de Área Geográfica", "Catálogo de Clasificación Administrativa", "Catálogo de Fuentes de Financiamiento", "Cierre Presupuestal", "Cuentas Presupuestales", "Definición de Objeto del Gasto", "Generación Estructura Presupuestal", "Liberación de Presupuesto", "Ministración de Presupuesto", "Opciones del Sistema", "Otro", "Reportes Presupuestales", "Techo Presupuestal", "Transferencias Presupuestales", "Visor de Reportes"],
+      "modulostfs": ["Administrador de Programas Operativos", "Administrador de Catálogos", "otro", "Administrador de Reportes", "Ajustes Presupuestales", "Auxiliar de Ingresos", "Auxiliar Presupuestal", "otro", "Entidades Geograficas", "Clasificación Administrativa", "Fuentes de Financiamiento", "Cierre Presupuestal", "Cuentas Presupuestales", "Definición de Objeto de Gasto", "Generación de Estructura Presupuestal", "Liberación de Presupuesto", "Ministración de Presupuesto", "otro", "otro", "Reportes Presupuestales", "Techo Presupuestal", "Transferencias Presupuestales", "Visor de Reportes"]
     },
     {
       "sisu": "Sistema Integral de Obra Pública (SIGG)",
-      "tfs": "Obra Pública"
+      "tfs": "Obra Pública",
+      "modulossisu": ["Administrador de Adjudicaciones de Obra Pública", "Administrador de Ajustes de Precios", "Administrador de Catálogos", "Administrador de Documentos", "Administrador de Estimaciones de Obra Pública", "Administrador de Procesos", "Administrador de Proyectos de Obra Pública", "Administrador de Recursos Federales", "Administrador de Reportes", "Base de Conocimientos", "Bitácora Electrónica de Obra Pública", "Calendario de Obra Publica", "Catálogo de Apertura Programática", "Catálogo de Conceptos de Deducción Obra", "Catálogo Fases y Temas de Bitácora Electrónica de Obra", "Configuración de Contratos de Obra", "Ejecución y Seguimiento de Obra Publica", "Otro"],
+      "modulostfs": ["Administrador de Adjudicaciones", "Administrador de Ajustes de Precios", "Administrador de Catálogos", "otro", "Administrador de Estimaciones", "otro", "Administrador de Proyectos", "Administrador de Recursos Federales", "Administrador de Reportes", "otro", "Bitacora Electrónica", "Calendario", "Apertura Programática", "Conceptos de Deducción de Obra", "otro", "Configuración de Contratos", "Ejecución y Seguimiento", "otro"]
     },
     {
       "sisu": "Sistema Integral de Patrimonio (SIGG)",
-      "tfs": "Patrimonio"
+      "tfs": "Patrimonio",
+      "modulossisu": ["Administrador de Catálogos", "Administrador de Cédulas", "Administrador de Cédulas de Bienes Inmuebles", "Administrador de Procesos", "Administrador de Reportes", "Base de Conocimientos", "Inventario de Bienes", "Inventario de Bienes Inmuebles", "Levantamiento Físico de Inventarios", "Opciones del Sistema", "Otro", "Visor de Reportes"],
+      "modulostfs": ["Administrador de Catálogos", "Administrador de Cédulas", "Administrador de Cédulas de Bienes Inmuebles", "otro", "Administrador de Reportes", "otro", "Inventario de Bienes", "Inventario de Bienes Inmuebles", "Levantamiento Fisico de Inventarios", "otro", "otro", "Visor de Reportes"]
     },
     {
       "sisu": "Otro",
