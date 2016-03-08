@@ -1,0 +1,7 @@
+C:\BOT\TicketMerida\TicketsDominio\bin\Debug\TicketsDominio.dll
+C:\BOT\TicketMerida\TicketsDominio\bin\Debug\TicketsDominio.pdb
+C:\BOT\TicketMerida\TicketsDominio\obj\Debug\TicketsDominio.csprojResolveAssemblyReference.cache
+C:\BOT\TicketMerida\TicketsDominio\obj\Debug\TicketsDominio.dll
+C:\BOT\TicketMerida\TicketsDominio\obj\Debug\TicketsDominio.pdb
+C:\BOT\TicketMerida\TicketsDominio\bin\Debug\EntityFramework.dll
+C:\BOT\TicketMerida\TicketsDominio\bin\Debug\EntityFramework.SqlServer.dll

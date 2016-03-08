@@ -1,0 +1,10 @@
+C:\BOT\TicketMerida\TicketsDAO\bin\Debug\TicketsDAO.dll
+C:\BOT\TicketMerida\TicketsDAO\bin\Debug\TicketsDAO.pdb
+C:\BOT\TicketMerida\TicketsDAO\obj\Debug\TicketsDAO.csprojResolveAssemblyReference.cache
+C:\BOT\TicketMerida\TicketsDAO\obj\Debug\TicketsDAO.dll
+C:\BOT\TicketMerida\TicketsDAO\obj\Debug\TicketsDAO.pdb
+C:\BOT\TicketMerida\TicketsDAO\bin\Debug\EntityFramework.dll
+C:\BOT\TicketMerida\TicketsDAO\bin\Debug\EntityFramework.SqlServer.dll
+C:\BOT\TicketMerida\TicketsDAO\bin\Debug\TicketsDominio.dll
+C:\BOT\TicketMerida\TicketsDAO\bin\Debug\TicketsDominio.pdb
+C:\BOT\TicketMerida\TicketsDAO\bin\Debug\TicketsDAO.dll.config

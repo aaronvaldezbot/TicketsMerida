@@ -1,0 +1,95 @@
+﻿{
+  "sistemas": [
+    {
+      "sisu": "Sistema Integral de Almacenes e Inventarios (SIGG)",
+      "tfs": "Almacen",
+      "modulossisu": [ "Administrador de Catálogos", "Administrador de Reportes", "Entradas y Salidas", "Inventario de Almacenes", "Inventario Físico", "Opciones del Sistema", "Otro", "Visor de Reportes" ],
+      "modulostfs": [ "Administrador de Catálogos", "Administrador de Reportes", "Entradas y Salidas", "Inventario de Almacenes", "Inventario Fisico", "Otro", "Otro", "Visor de Reportes" ]
+    },
+    {
+      "sisu": "Sistema Integral de Compras (SIGG)",
+      "tfs": "Adquisiciones/Compras",
+      "modulossisu": [ "Administrador de Catálogos", "Administrador de Compras", "Administrador de Licitaciones y Concursos", "Administrador de Procesos", "Administrador de Reportes", "Administrador de Reportes de Oficio", "Administrador de Solicitud de Proveedores", "Base de Conocimientos", "Beneficiarios", "Bienes, Muebles y Servicios", "Contratos", "Entrega Recepción de Productos", "Leyes y Tratados",  "Opciones de Sistema", "Orden de Compra", "Otro", "Padrón", "Requisiciones", "Visor de Reportes" ],
+      "modulostfs": [ "Administrador de Catálogos", "Administrador de Compras", "Administrador de Licitaciones y Concursos", "Otro", "Administrador de Reportes", "Otro", "Administrador de Solicitud de Proveedores", "Otro", "Administrador de Beneficiarios", "Administrador de Bienes, Muebles y Servicios", "Administrador de Contratos", "Entrega de Recepción de Productos", "Leyes y Tratados", "Otro", "Otro", "Otro", "Otro", "Administrador de Requisiciones", "Visor de Reportes" ]
+    },
+    {
+      "sisu": "Sistema Integral de Contabilidad (SIGG)",
+      "tfs": "Contabilidad",
+      "modulossisu": [ "Administrador de Catálogos", "Administrador de Procesos", "Administrador de Reportes", "Base de Conocimientos", "Cierres Contables", "Clasificador de Rubro de Ingresos", "Conciliación Bancaria", "Configuración de Reportes Financieros", "Cuentas Presupuestales", ],
+      "modulostfs": [ "Administrador de Catálogos", "", ""]
+    },
+    {
+      "sisu": "Sistema Integral de Control Vehicular (SIGG)",
+      "tfs": "Control Vehicular",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Deuda Pública (SIGG)",
+      "tfs": "Deuda Pública",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Egresos (SIGG)",
+      "tfs": "Egresos",
+      "modulossisu": [ "Administrador de Cajas", "Administrador de Catálogos", "Administrador de Procesos", "Administrador de Reportes", "Autorización de Pagos", "Base de Conocimientos", "Comisiones", "Configuración de Layouts de Dispersión", "Cuentas de Retención", "Cuentas por Pagar", "Emisión de Pagos", "Opciones del Sistema", "Otro", "Participaciones a Comisarías", "Políticas de Fondos Fijos", "Visor de Reportes" ],
+      "modulostfs": ["Administrador de Cajas", "Administrador de Catálogos", "Otro", "Administrador de Reportes", "Autorización de Pagos", "Otro", "Comisiones", "Configuración de Layouts de Dispersión", "Configuración de Cuentas de Retención", "Cuentas Por Pagar", "Emisión de Pagos", "Otro", "Participaciones a Municipios", "Politicas de Fondos Fijos", "Visor de Reportes"]
+    },
+    {
+      "sisu": "Sistema Integral de Ingresos (SIGG)",
+      "tfs": "Ingresos",
+      "modulossisu": [],
+      "modulostfs": []
+
+    },
+    {
+      "sisu": "Sistema Integral de Planeación e Indicadores (SIGG)",
+      "tfs": "Planeación",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Recursos Humanos (SIGG)",
+      "tfs": "Recursos Humanos",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Seguridad (SIGG)",
+      "tfs": "Seguridad",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Control de Asistencia (SIGG)",
+      "tfs": "Control de Asistencia",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Nómina (SIGG)",
+      "tfs": "Nómina",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Presupuestos (SIGG)",
+      "tfs": "Presupuestos",
+      "modulossisu": [],
+      "modulostfs": []
+    },
+    {
+      "sisu": "Sistema Integral de Obra Pública (SIGG)",
+      "tfs": "Obra Pública"
+    },
+    {
+      "sisu": "Sistema Integral de Patrimonio (SIGG)",
+      "tfs": "Patrimonio"
+    },
+    {
+      "sisu": "Otro",
+      "tfs": "Sin Especificar"
+    }
+  ]
+}
