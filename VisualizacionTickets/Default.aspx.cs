@@ -15,7 +15,7 @@ namespace VisualizacionTickets
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            Title = "Visualización Tickets";
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

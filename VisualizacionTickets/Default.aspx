@@ -88,7 +88,7 @@
                             <td class="campoValor">
                                 <span class="campoValorInput">
                                     <span class="campoValorInput">
-                                        <input type="text" class="form-control valorFiltro" placeholder="Valor">
+                                        <input id="filtroText" type="text" class="form-control valorFiltro" placeholder="Valor">
                                     </span>
                                 </span>
                             </td>
@@ -155,6 +155,7 @@
                 <button id="agregaFiltro" type="button" class="btn btn-default">Agregar Filtro</button>
                 <button id="btnFiltrar" type="button" class="btn btn-default" onclick="filtrar()">Filtrar</button>
                 <button id="btnBorrarFiltros" type="button" class="btn btn-default" onclick="BorrarFiltros()">Limpiar Filtros</button>
+                <button id="btnActualizar" type="button" class="btn btn-default" onclick="ActualizarWebService()">Actualizar</button>
             </div>
             <div class="form-group">
                 

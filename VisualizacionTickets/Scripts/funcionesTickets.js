@@ -13,8 +13,23 @@ var IdsTFSyIdsSISU = null;
 var arrayNombreColumnas = [];
 var webServiceContesta = true;
 var sistemas = null;
+var clicModuloTFS = "";
+var clicSistemaTFS = "";
+var clicDescripcion = "";
+var clicIdSISU = 0;
+var arrayModulosGenericos = ["Opciones del Sistema", "Administrador de Procesos", "Administrador de Oficios", "Administrador de Padrones", "Administrador de Reportes"];
+var usuariosWindows = ["jorge.aldana", "gaspar.garcia", "reyes.aguilar", "elisa.gonzalez", "roberto.bracamonte", "sergio.sanchez"];
+var usuariosTFS = ["Jorge Adrian Aldana Ake", "Reyes Aguilar Medina", "Linda Elisa Gonzalez Cobos", "Roberto Carlos Bracamonte Coello", "Sergio Sanchez Garcia"];
+var nombreRecursoTFS = "Ricardo Chi Keb";
+var nombreWindows = "";
+
 $(document).ready(function () {
     $("#spnfiltro").hide();
+    $('#filtroText').keypress(function (event) {
+        if (event.keyCode == 10 || event.keyCode == 13)
+            event.preventDefault();
+    });
+    obtenerNombreRecursoTFS();
     listaControlesDiseñador();
     ObtenerJSONSistemas();
     ObtenerIdsTFS();
@@ -93,9 +108,31 @@ $(document).ready(function () {
         });
     }
     else {
+        //Todo mejorar el mensaje en un dialogo
         alert("Fallo el web service");
     }
 });
+
+
+function ActualizarWebService()
+{
+    $.ajax({
+        type: 'POST',
+        url: "wsServicio.asmx/WebServiceMerida",
+        async: true,
+        contentType: "application/json; charset=ISO-8859-1",
+        dataType: "json",
+        success: function (data) {
+            var registros = JSON.parse(data.d);
+            var filas = registros.rows;
+            // Guardamos el JSON de las filas devueltas.
+            $(window).data("rows", filas);
+            var filtro = $(window).data("rows");
+            $("#grid").bootgrid("clear");
+            $("#grid").bootgrid("append", filtro);
+        }
+    });
+}
 
 // Activa un badge para eliminar una fila con filtros
 function activaBadges() {
@@ -123,6 +160,16 @@ function activaPickers() {
     });
 }
 
+function obtenerNombreRecursoTFS()
+{
+    nombreWindows = $("#loginName").text();
+    nombreWindows = nombreWindows.split('\\')[1];
+    var indexNombreTFS = usuariosWindows.indexOf(nombreWindows);
+    if(indexNombreTFS > 0)
+    {
+        nombreRecursoTFS = usuariosTFS[indexNombreTFS];
+    }
+}
 
 function agregaExpresiones() {
 
@@ -155,6 +202,7 @@ function ObtenerJSONSistemas()
         dataType: "json",
         url: url,
         data: null,
+        async: false,
         success: function (data) {
             sistemas = data;
         }
@@ -188,7 +236,6 @@ function activaLinks() {
             if ($(this).html().toLowerCase().indexOf("fecha") >= 0) {
                 $(this).closest("td").siblings(".campoValor").find("span.campoValorInput").replaceWith($(window).data("templateDatePicker").html());
                 activaPickers();
-
             } else {
                 /// Para Terminar
                 $(this).closest("td").siblings(".campoValor").find("span.campoValorInput").replaceWith($(window).data("templateCampo").html());
@@ -198,9 +245,12 @@ function activaLinks() {
             $(this).closest("ul").siblings("button").html($(this).html() + '<span class="caret"></span>');
         }
         $(this).closest("ul").siblings("button").html($(this).html() + '<span class="caret"></span>');
-
-
+        $('#filtroText').keypress(function (event) {
+            if (event.keyCode == 10 || event.keyCode == 13)
+                event.preventDefault();
+        });
     });
+
 }
 //// Agregamos o no las ventanas de fechas 
 function activaEventoDatePickers(slcNombreFiltro) {
@@ -253,14 +303,13 @@ function getSistemaTFSBySISUSistema(data, sistema) {
 function ObtenerIdsTFS() {
     $.ajax({
         type: 'POST',
-        url: "wsPrueba.asmx/ObtenerIdsTFS",
+        url: "wsServicio.asmx/ObtenerIdsTFS",
         async: false,
         data: '{"IdsSISU":"' + arrayIdsTicketsCliente + '"}',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
             IdsTFSyIdsSISU = JSON.parse(data.d);
-            //var abc = getFolioTFSBySISUID(result, "13143");
         }
     });
 }
@@ -271,7 +320,7 @@ function listaControlesDiseñador() {
         var formData = { callback: "87098", folio: "0" };
             $.ajax({
                 type: 'POST',
-                url: "wsPrueba.asmx/WebServiceMerida",
+                url: "wsServicio.asmx/WebServiceMerida",
                 async: false,
                 contentType: "application/json; charset=ISO-8859-1",
                 dataType: "json",
@@ -409,7 +458,6 @@ function init() {
                 return "<button type=\"button\" class=\"btn btn-xs btn-link\" data-row-id=\"" + id + "\" onclick=\"mensaje('" + id + "');\"><span class=\"fa fa-pencil\"></span>&nbsp;&nbsp;" + row.IDTicket + "</button>";
             },
             "descripcion": function (column, row) {
-                //return "<img src=\"\" height=\"20\" width=\"20\" class=\"btn btn-xl btn-default command-modal\" data-toggle=\"modal\" data-target=\"#" + row.IDTicket + "\" ><div class=\"modal fade\" id=\"" + row.IDTicket + "\" role=\"dialog\" tabindex=\"-1\" aria-labelledby=\"gridSystemModalLabel\"><div class=\"modal-dialog \" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-header\"><h4 class=\"modal-title\">" + row.IDTicket + " (" + row.Asignado + ")" + "</h4></div><div class=\"modal-body\"><p>" + row.Descripcion + "</p></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cerrar</button></div></div></div></div></div>";
                 return '<p data-toggle="tooltip" data-placement="auto" title="' + row.Descripcion + '">' + row.Descripcion + '</p>';
             },
             "idTFS": function (column, row) {
@@ -438,25 +486,36 @@ function init() {
                 }
                 var indexModulo = modulosSistema.indexOf(row.Modulo.toLowerCase());
                 var moduloTFS = modulosSistemaTFS[indexModulo];
-                if (ElementoTFSMapeadoSISU === null || ElementoTFSMapeadoSISU === undefined || ElementoTFSMapeadoSISU.length === 0) {
-                    return "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-crearbug\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\" data-row-idtfs=\"" + 0 + "\" data-row-sistematfs=\"" + nombreSistemaTFS + "\"><span class=\"glyphicon glyphicon-flash\" aria-hidden=\"true\"></span></button>" +
-                   "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-verDescripcion\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\"><span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span></button>";
+                var moduloSISU = modulosSistema[indexModulo];
+                if (moduloTFS !== undefined) {
+                    if (moduloTFS.toLowerCase() === "otro") {
+                        if (arrayModulosGenericos.indexOf(moduloSISU) === -1) {
+                            nombreSistemaTFS = "Genéricos";
+                            moduloTFS = arrayModulosGenericos[arrayModulosGenericos.indexOf(moduloSISU)];
+                        }
+                    }
                 }
-                return "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-crearbug\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\" data-row-idtfs=\"" + ElementoTFSMapeadoSISU[0].idTFS + "\" data-row-sistematfs=\"" + nombreSistemaTFS + "\"><span class=\"glyphicon glyphicon-flash\" aria-hidden=\"true\"></span></button>" +
-                    "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-verDescripcion\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\"><span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span></button>";
-                //return '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>';
+                if (ElementoTFSMapeadoSISU === null || ElementoTFSMapeadoSISU === undefined || ElementoTFSMapeadoSISU.length === 0) {
+                    return "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-crearbug\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\" data-row-idtfs=\"" + 0 + "\" data-row-sistematfs=\"" + nombreSistemaTFS + "\" data-row-modulotfs=\"" + moduloTFS + "\"><span class=\"glyphicon glyphicon-flash\" aria-hidden=\"true\"></span></button>" +
+                   "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-verDescripcion\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\"><span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span></button>" +
+                        "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-cerrarTicket\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\"><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></button>";
+                }
+                return "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-crearbug\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\" data-row-idtfs=\"" + ElementoTFSMapeadoSISU[0].idTFS + "\" data-row-sistematfs=\"" + nombreSistemaTFS + "\" data-row-modulotfs=\"" + moduloTFS + "\"><span class=\"glyphicon glyphicon-flash\" aria-hidden=\"true\"></span></button>" +
+                    "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-verDescripcion\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\"><span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span></button>" +
+                    "<button type=\"button\" height=\"20\" width=\"20\" class=\"btn btn-xs btn-default command-cerrarTicket\" data-row-id=\"" + row.IDTicket + "\" data-row-descripcion=\"" + row.Descripcion + "\"><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></button>";
             }
-            //"Acciones": function (column, row) {
-            //    var id = eval("row.IDTicket");
-            //    return "<button type=\"button\" class=\"btn btn-xs btn-link command-edit\" data-row-id=\"Acciones\" onclick=\"mensaje('" + id + "');\"><span class=\"fa fa-pencil\"></span>&nbsp;&nbsp;Acciones</button>";
-            //}
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
         /* Executes after data is loaded and rendered */
             
         grid.find(".command-crearbug").on("click", function (e) {
             if ($(this).data("row-idtfs") === 0) {
+                clicSistemaTFS = $(this).data("row-sistematfs");
+                clicModuloTFS = $(this).data("row-modulotfs");
+                clicDescripcion = $(this).data("row-descripcion");
+                clicIdSISU = $(this).data("row-id");
                 var tempModal = BootstrapDialog.show({
+                    type: BootstrapDialog.TYPE_PRIMARY,
                     message: 'Crear bug en Team Foundation Server!',
                     buttons: [{
                         icon: 'glyphicon glyphicon-send',
@@ -468,16 +527,25 @@ function init() {
                             dialogRef.setClosable(false);
                             $.ajax({
                                 type: "POST",
-                                url: "wsPrueba.asmx/CrearBug",
-                                data: null,
-                                async: true,
+                                url: "wsServicio.asmx/CrearBug",
+                                data: '{"nombreSistema":"' + clicSistemaTFS + '",' + '"nombreModulo":"' + clicModuloTFS + '",' + '"descripcion":"' + clicDescripcion + '",' + '"idSISU":"' + clicIdSISU + '",' + '"nombreAsignado":"' + nombreRecursoTFS + '"}',
+                                async: false,
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (result) {
-                                    dialogRef.getModalBody().html('Bug creado ' + result.d + ' la ventana se cerrara automaticamente en 5 segundos.');
+                                    if (result.d === "0") {
+                                        dialogRef.getModalBody().html('No se pudo crear el bug en el servicio Team Foundation Server, vuelta a intentar o contacte a su administrador. La ventana se cerrara automaticamente en 5 segundos.');
+                                    }
+                                    else {
+                                        dialogRef.getModalBody().html('Se ha creado el bug <a target="_blank" href="http://bot-tfs:8080/tfs/BOT/PDG/_workitems#id=' + result.d + '&triage=true&_a=edit">' + result.d + '</a>. La ventana se cerrara automaticamente en 10 segundos.');
+                                        IdsTFSyIdsSISU.push({ IdTicket: 0, idSISU: clicIdSISU, idTFS: result.d });
+                                        filtro = $(window).data("rows");
+                                        $("#grid").bootgrid("clear");
+                                        $("#grid").bootgrid("append", filtro);
+                                    }
                                     setTimeout(function () {
                                         dialogRef.close();
-                                    }, 5000);
+                                    }, 10000);
                                 }
                             });
                         }
@@ -488,22 +556,66 @@ function init() {
                         }
                     }]
                 });
-                tempModal.getModalHeader().css('background-color', '#0088cc');
-                tempModal.getModalHeader().css('color', '#fff');
-                //alert("You pressed delete on row: " + $(this).data("row-sistematfs"));
-                //alert("You pressed delete on row: <a target=\"_blank\" href=\"http://bot-tfs:8080/tfs/BOT/PDG/_workitems#id=" + $(this).data("row-idtfs") + "&triage=true&_a=edit\" >" + $(this).data("row-idtfs") + "</a>");
             } else {
                 var dialog = BootstrapDialog.alert("Ya tiene un bug asociado <a target=\"_blank\" href=\"http://bot-tfs:8080/tfs/BOT/PDG/_workitems#id=" + $(this).data("row-idtfs") + "&triage=true&_a=edit\" >" + $(this).data("row-idtfs") + "</a>");
-                dialog.getModalHeader().css('background-color', '#0088cc');
-                dialog.getModalHeader().css('color', '#fff');
-                //alert("You pressed delete on row: " + $(this).data("row-sistematfs"));
+                dialog.setType(BootstrapDialog.TYPE_PRIMARY);
+                dialog.setTitle("Información");
             }
-            //alert("You pressed edit on row: " + $(this).data("row-id") + $(this).data("row-sistema"));
         }).end().find(".command-verDescripcion").on("click", function (e) {
             var tempModal = BootstrapDialog.alert($(this).data("row-descripcion"));
-            tempModal.getModalHeader().css('background-color', '#0088cc');
-            tempModal.getModalHeader().css('color', '#fff');
-            //alert("You pressed delete on row: " + $(this).data("row-sistematfs"));
+            tempModal.setType(BootstrapDialog.TYPE_PRIMARY);
+            tempModal.setTitle("Descripción");
+            tempModal.enableButtons(true);
+            tempModal.setClosable(true);
+        }).end().find(".command-cerrarTicket").on("click", function (e) {
+            var tempModal = BootstrapDialog.show({
+                type: BootstrapDialog.TYPE_PRIMARY,
+                message: $('<textarea id="respUsuario" class="form-control" style="min-height: 5em; min-width: 100%;" placeholder="Respuesta..."></textarea><br/><textarea id="respInterna" class="form-control" style="min-height: 5em; min-width: 100%;" placeholder="Respuesta Interna..."></textarea>'),
+                title: "Responder Ticket",
+                data: {
+                    'idSISU': $(this).data("row-id"),
+                    'usuario': nombreWindows.toUpperCase() + "BO"
+                },
+                buttons: [{
+                    icon: 'glyphicon glyphicon-send',
+                    label: ' Cerrar Ticket',
+                    cssClass: 'btn-primary',
+                    autospin: true,
+                    action: function (dialogRef) {
+                        dialogRef.enableButtons(false);
+                        dialogRef.setClosable(false);
+                        $.ajax({
+                            type: 'POST',
+                            url: "wsServicio.asmx/WebServiceMeridaCerrarTicket",
+                            async: false,
+                            data: '{"idSISU":"' + dialogRef.getData('idSISU') + '",' + '"usuario":"' + dialogRef.getData('usuario') + '",' + '"respUsuario":"' + $("#respUsuario").val() + '",' + '"respInterna":"' + $("#respInterna").val() + '"}',
+                            contentType: "application/json; charset=ISO-8859-1",
+                            dataType: "json",
+                            success: function (data) {
+                                var result = JSON.parse(data.d);
+                                if(result.lError.toString() === "true")
+                                {
+                                    var alertDialog = BootstrapDialog.alert(result.cError);
+                                    alertDialog.setType(BootstrapDialog.TYPE_DANGER);
+                                    dialogRef.enableButtons(true);
+                                    dialogRef.setClosable(true);
+                                }
+                                else {
+                                    var alertDialog = BootstrapDialog.alert(result.cError);
+                                    alertDialog.setType(BootstrapDialog.TYPE_SUCCESS);
+                                    dialogRef.enableButtons(true);
+                                    dialogRef.setClosable(true);
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    label: 'Close',
+                    action: function (dialogRef) {
+                        dialogRef.close();
+                    }
+                }]
+            });
         });
     });
     var filtro = $(window).data("rows");
@@ -599,20 +711,11 @@ function mensaje(id) {
                         $.each(valorObjeto, function (indiceHistorial, historialValor) {
                             var iConversacion = indiceHistorial + 1;
 
-
-                            //$(ulConversacionesPills).attr("id", iConversacion);
-
                             $(ulConversacionesPills).append($('<li><a href="#tab' + iConversacion + '" data-toggle="tab" id="' + iConversacion + '">' + iConversacion + '</a></li>'));
 
-                            //var btn = $('<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#' + iConversacion + '">Historial # : ' + iConversacion + '</button>');
-                            //$(contenedorBotones).append(btn);
-
-
                             var dvElementosHist = $('<div class="tab-pane" id="tab' + iConversacion + '"></div>');
-                            //var dv = $('<div id="' + iConversacion + '" class="collapse"></div>');
                             var campoHistorial = $('<div class="form-group"></div>');
                             $.each(historialValor, function (clave, valorConversacion) {
-                                //$(dvElementosHist).append('<label class="control-label col-md-4" for="' + clave + '">' + valorConversacion + '</label>');
                                 $(dvElementosHist).append('<p><b>' + clave + '</b></p>');
                                 if (clave === "Adjuntos") {
                                     $.each(valorConversacion, function (claveAdjunto, adjunto) {
@@ -625,12 +728,10 @@ function mensaje(id) {
                             });
                             $(contenedorBotones).append(ulConversacionesPills);
                             $(dvHistorial).prepend(contenedorBotones);
-                            //$(dvHistorial).prepend(contenedorBotones);
 
                             $(dv).append(dvElementosHist);
 
                             $(dvHistorial).append(dv);
-                            //$(dvHistorial).append(dv.clone());
                         });
                     } else {
                         if (indiceObjeto.toLowerCase().indexOf("descripcion") >= 0) {
@@ -641,21 +742,6 @@ function mensaje(id) {
                             campo.append('<label class="control-label col-md-4" for="' + indiceObjeto + '">' + indiceObjeto + '</label>');
                             campo.append('<div class="col-md-6"><input type="text" class="form-control" id="' + indiceObjeto + '" placeholder="' + indiceObjeto + '" value="' + valorObjeto + '"></div>');
                         }
-                        /*
-                                         <div class="tabbable">
-                                        <ul class="nav nav-tabs nav-pills" id="myTab">
-                                            <li class="active"><a href="#tab1" data-toggle="tab">Part 1</a>
-        
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="tab1">aaaaaaaaaaaa</div>
-                                        </div>
-                                    </div>
-                         */
-
-
-                        //$(formulario).append(campo.clone());
                     }
                 });
                 campo.append(campoDescripcion);
@@ -668,17 +754,13 @@ function mensaje(id) {
                 $(dvFormulario).append(ul);
                 $(dvFormulario).append(dvPill);
                 dvHistorial = document.createElement("div");
-                var dialog = BootstrapDialog.show({ 
+                var dialog = BootstrapDialog.show({
+                    type: BootstrapDialog.TYPE_PRIMARY,
                     title: "Número de Ticket: " + id,
                     message: dvFormulario,
                     onshow: function (dialog) {
-                        //dialog.getButton('button-c').disable();
-                        dialog.setSize(BootstrapDialog.SIZE_WIDE);
-                        //activaTab('formulario');
                     }
                 });
-                dialog.getModalHeader().css('background-color', '#0088cc');
-                dialog.getModalHeader().css('color', '#fff');
             }
         });
     } // Fin del try
@@ -687,142 +769,3 @@ function mensaje(id) {
         alert("Ha Ocurrido un error " + e.message);
     }
 }
-
-//function creaBreadCrumbs(objHistorial) {
-//    var dv = $('<div class="Breads"></div>');
-//    var li = document.createElement("li");
-//    var ul = document.createElement("ul");
-
-
-
-//    $.each(objHistorial, function (indice, valor) {
-
-//    });
-
-//}
-
-//function init()
-//{
-//    var grid = $("#grid");
-//    $(grid).bootgrid({
-//        ajax: true,
-//        ajaxSettings: {
-//            method: "GET",
-//            cache: false
-//        },
-//        url: "data.json",
-//        formatters: {
-//            "commands": function (column, row)
-//            {
-//                return "<button type=\"button\" class=\"btn btn-xs btn-default btn-info command-edit\" data-row-id=\"" + row.a + "\" onclick=\"mensaje('" + row.a + "');\"><span class=\"fa fa-pencil\"></span>&nbsp;&nbsp;Ver Detalles</button>";
-
-//                //return "<button class=\"btn-default btn\" data-content-close=\"Close\" data-content-id=\"Div\" data-content-save=\"Save\" data-target=\"#6698CB2F-2948-45D9-8902-2C13A7ED6335\" data-title=\"Title\" data-toggle=\"modal\" type=\"button\">Show modal</button>";
-
-//            },
-//            "link": function (column, row)
-//            {
-//                return "<img src=\"Student/getPhoto/" + row.a + "\" />";
-//            }
-//        },
-//        css: {
-//            /*pagination: 'pagination pagination-sm',
-//            paginationButton: 'btn-warning btn-sm'*/
-//            icon: 'md icon',
-//            iconColumns: 'md-view-module',
-//            iconDown: 'md-expand-more',
-//            iconRefresh: 'md-refresh',
-//            iconUp: 'md-expand-less'
-//        },
-//        caseSensitive: false,
-//        searchSettings: { delay: 250, characters: 3 },
-//        //},
-
-//        rowCount: [-1, 2, 4, 8, 10] // No me respeta esta propiedad
-//        // selectedRowCount: 8
-
-//    }).on("loaded.rs.jquery.bootgrid", function ()
-//    {
-
-//        $(grid).find("li .active");
-//        //alert("Iniciando");
-
-//    });
-//}
-
-//$("#append").on("click", function ()
-//{
-//    $("#grid").bootgrid("append", [{
-//        id: 0,
-//        sender: "hh@derhase.de",
-//        received: "Gestern",
-//        link: ""
-//    },
-//    {
-//        id: 12,
-//        sender: "er@fsdfs.de",
-//        received: "Heute",
-//        link: ""
-//    }]);
-//});
-
-/*$("#clear").on("click", function ()
-{
-    $("#grid").bootgrid("clear");
-});
-
-$("#removeSelected").on("click", function ()
-{
-    $("#grid").bootgrid("remove");
-});
-
-$("#destroy").on("click", function ()
-{
-    $("#grid").bootgrid("destroy");
-});
-
-$("#init").on("click", init);
-
-$("#clearSearch").on("click", function ()
-{
-    $("#grid").bootgrid("search");
-});
-
-$("#clearSort").on("click", function ()
-{
-    $("#grid").bootgrid("sort");
-});
-
-$("#getCurrentPage").on("click", function ()
-{
-    alert($("#grid").bootgrid("getCurrentPage"));
-});
-
-$("#getRowCount").on("click", function ()
-{
-    alert($("#grid").bootgrid("getRowCount"));
-});
-
-$("#getTotalPageCount").on("click", function ()
-{
-    alert($("#grid").bootgrid("getTotalPageCount"));
-});
-
-$("#getTotalRowCount").on("click", function ()
-{
-    alert($("#grid").bootgrid("getTotalRowCount"));
-});
-
-$("#getSearchPhrase").on("click", function ()
-{
-    alert($("#grid").bootgrid("getSearchPhrase"));
-});
-
-$("#getSortDictionary").on("click", function ()
-{
-    alert($("#grid").bootgrid("getSortDictionary"));
-});
-
-$("#getSelectedRows").on("click", function ()
-{
-    alert($("#grid").bootgrid("getSelectedRows"));
-});*/

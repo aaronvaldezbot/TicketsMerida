@@ -6,16 +6,17 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Calidad e Innovación</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap-dialog.css" rel="stylesheet" />
     <link href="Content/jquery.bootgrid.css" rel="stylesheet" />
     <link href="Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <webopt:bundlereference runat="server" path="~/Content/css" />
 </head>
 <body>
     <form runat="server">
@@ -39,6 +40,7 @@
                 <asp:ScriptReference Path="~/Scripts/moderniz.2.8.1.js" />
                 <asp:ScriptReference Path="~/Scripts/jquery-1.11.1.min.js" />
                 <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
+                <asp:ScriptReference Path="~/Scripts/bootstrap-dialog.js" />
                 <asp:ScriptReference Path="~/Scripts/jquery.bootgrid.js" />
                 <asp:ScriptReference Path="~/Scripts/jquery.bootgrid.fa.js" />
                 <asp:ScriptReference Path="~/Scripts/modal.js" />
@@ -46,6 +48,7 @@
                 <asp:ScriptReference Path="~/Scripts/moment.js" />
                 <asp:ScriptReference Path="~/Scripts/bootstrap-datetimepicker.js" />
                 <asp:ScriptReference Path="~/Scripts/funcionesTickets.js" />
+                <asp:ScriptReference Path="~/Scripts/run_prettify.min.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <%--Site Scripts--%>
             </Scripts>
@@ -67,7 +70,7 @@
                         <li><a runat="server" href="~/About">Acerca de</a></li>
                         <li><a runat="server" href="~/Contact">Contacto</a></li>
                     </ul>
-                    <p class="nav navbar-text navbar-right">Bienvenido, <asp:LoginName runat="server" />!</p>
+                    <p class="nav navbar-text navbar-right">Bienvenido, <asp:LoginName id="loginName" runat="server" />!</p>
                 </div>
             </div>
         </div>

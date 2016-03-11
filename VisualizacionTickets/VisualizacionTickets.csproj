@@ -188,7 +188,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Scripts\moment.js" />
-    <Content Include="wsPrueba.asmx" />
+    <Content Include="wsServicio.asmx" />
     <Content Include="data.json" />
     <None Include="Scripts\jquery-1.11.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.1.js" />
@@ -306,8 +306,8 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="wsPrueba.asmx.cs">
-      <DependentUpon>wsPrueba.asmx</DependentUpon>
+    <Compile Include="wsServicio.asmx.cs">
+      <DependentUpon>wsServicio.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

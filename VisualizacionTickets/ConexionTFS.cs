@@ -33,27 +33,47 @@ namespace VisualizacionTickets
         {
         }
 
-        public int CrearBug()
+        public int CrearBug(string nombreSistema, string nombreModulo, string descripcion, int idSISU, string nombreAsignado)
         {
-            using (var ctx = new TicketsDBContext())
-            {
-                BugCreado oBug = new BugCreado();
-                oBug.idSISU = 13143;
-                oBug.idTFS = 21628;
-                ctx.BugCreado.Add(oBug);
-                ctx.SaveChanges();
+            try {
+                if(nombreSistema == "0")
+                {
+                    nombreSistema = "Sin Especificar";
+                }
+                if(nombreModulo == "undefined")
+                {
+                    nombreModulo = "Sin Especificar";
+                }
+                WorkItemType wiType = store.Projects["PRUEBASIAC"].WorkItemTypes["Bug"];
+                WorkItem newWI = new WorkItem(wiType);
+                newWI.Title = idSISU.ToString() + " Creación Automática desde APP Tickets";
+                newWI.State = "Proposed";
+                newWI.Fields["System.AssignedTo"].Value = nombreAsignado;
+                newWI.Fields["Microsoft.VSTS.CMMI.Symptom"].Value = descripcion;
+                newWI.Fields["BlueOcean.MainREQ.Sistema"].Value = nombreSistema;
+                newWI.Fields["BlueOcean.MainREQ.Modulo"].Value = nombreModulo;
+                newWI.Fields["Tags"].Value = "SISU";
+                newWI.Fields["BlueOcean.Pruebas.Navegadores"].Value = "Todos";
+                newWI.Fields["BlueOcean.Comun.VersionProducto"].Value = "4.6.0";
+                newWI.Fields["BlueOcean.MainREQ.Cliente"].Value = "Ayuntamiento de Mérida";
+                newWI.Fields["BlueOcean.MainREQ.Origen"].Value = "Cliente";
+                newWI.Fields["BlueOcean.Test.RequireTestIn"].Value = "Creado Automáticamente desde APP Tickets";
+                //Faltan campos obligatorios
+                newWI.Save();
+                using (var ctx = new TicketsDBContext())
+                {
+                    BugCreado oBug = new BugCreado();
+                    oBug.idSISU = idSISU;
+                    oBug.idTFS = newWI.Id;
+                    ctx.BugCreado.Add(oBug);
+                    ctx.SaveChanges();
+                }
+                return newWI.Id;
             }
-            WorkItemType wiType = store.Projects["PRUEBASIAC"].WorkItemTypes["Bug"];
-
-            WorkItem newWI = new WorkItem(wiType);
-            newWI.Title = "Prueba Creación";
-            newWI.State = "Proposed";
-            newWI.Fields["System.AssignedTo"].Value = "Aaron Arturo Valdez Avila";
-            newWI.Fields["BlueOcean.MainREQ.Sistema"].Value = "Almacen";
-            newWI.Fields["BlueOcean.MainREQ.Modulo"].Value = "Entradas y Salidas";
-            newWI.Fields["BlueOcean.Pruebas.Navegadores"].Value = "Todos";
-            //newWI.Save();
-            return 101;
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public List<string> ObtenerColecciones(Uri uUri)

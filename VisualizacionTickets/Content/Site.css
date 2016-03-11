@@ -17,8 +17,11 @@ select,
 textarea {
     max-width: 280px;
 }
-.bootgrid-table td {
-  white-space: normal;
+
+.bootgrid-table td
+{
+    /* aqui se modifica a las columnas del grid*/
+    
 }
 
 /* Responsive: Portrait tablets and up */
@@ -38,3 +41,7 @@ textarea {
     padding-top: 0px;
     padding-bottom: 0px;
     }
+
+.badge-error{
+    background-color: red;
+}
