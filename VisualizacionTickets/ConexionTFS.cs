@@ -33,9 +33,11 @@ namespace VisualizacionTickets
         {
         }
 
-        public int CrearBug(string nombreSistema, string nombreModulo, string descripcion, int idSISU, string nombreAsignado)
+        public string CrearBug(string nombreSistema, string nombreModulo, string descripcion, int idSISU, string nombreAsignado)
         {
             try {
+                teamProjectCollection.Authenticate();
+                teamProjectCollection.EnsureAuthenticated();
                 if(nombreSistema == "0")
                 {
                     nombreSistema = "Sin Especificar";
@@ -68,11 +70,11 @@ namespace VisualizacionTickets
                     ctx.BugCreado.Add(oBug);
                     ctx.SaveChanges();
                 }
-                return newWI.Id;
+                return newWI.Id.ToString();
             }
             catch (Exception ex)
             {
-                return 0;
+                return ex.Message;
             }
         }
 

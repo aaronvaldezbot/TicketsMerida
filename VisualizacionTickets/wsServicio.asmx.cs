@@ -30,19 +30,23 @@ namespace VisualizacionTickets
         {
             try
             {
-                WebRequest request = WebRequest.Create("http://isla.merida.gob.mx/scripts/cgiip.exe/WService=wsSISU/TicketsEscalados.r");
-                string jsonData = string.Empty;
+                var request = (HttpWebRequest)WebRequest.Create("http://isla.merida.gob.mx/scripts/cgiip.exe/WService=wsSISU/TicketsEscalados.r");
+
+                var postData = "folio=" + "0";
+                postData += "&length=" + "-1";
+                postData += "&page=" + "1";
+                var data = Encoding.ASCII.GetBytes(postData);
+
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded; charset=ISO-8859-1";
-                string postData = "{\"data\":\"" + "0" + "\"}"; //encode your data 
-                                                                //using the javascript serializer
+                request.ContentLength = data.Length;
 
-                //get a reference to the request-stream, and write the postData to it
-                using (Stream s = request.GetRequestStream())
+                using (var stream = request.GetRequestStream())
                 {
-                    using (StreamWriter sw = new StreamWriter(s))
-                        sw.Write(postData);
+                    stream.Write(data, 0, data.Length);
                 }
+                
+                string jsonData = string.Empty;
 
                 //get response-stream, and use a streamReader to read the content
                 using (Stream s = request.GetResponse().GetResponseStream())
@@ -54,6 +58,7 @@ namespace VisualizacionTickets
                         jsonData = iso.GetString(isoBytes);
                     }
                 }
+
                 return jsonData;
             }
             catch (Exception ex)

@@ -19,9 +19,10 @@ var clicDescripcion = "";
 var clicIdSISU = 0;
 var arrayModulosGenericos = ["Opciones del Sistema", "Administrador de Procesos", "Administrador de Oficios", "Administrador de Padrones", "Administrador de Reportes"];
 var usuariosWindows = ["jorge.aldana", "gaspar.garcia", "reyes.aguilar", "elisa.gonzalez", "roberto.bracamonte", "sergio.sanchez"];
-var usuariosTFS = ["Jorge Adrian Aldana Ake", "Reyes Aguilar Medina", "Linda Elisa Gonzalez Cobos", "Roberto Carlos Bracamonte Coello", "Sergio Sanchez Garcia"];
+var usuariosTFS = ["Jorge Adrian Aldana Ake", "Gaspar Jesus Garcia Zavala", "Reyes Aguilar Medina", "Linda Elisa Gonzalez Cobos", "Roberto Carlos Bracamonte Coello", "Sergio Sanchez Garcia"];
 var nombreRecursoTFS = "Ricardo Chi Keb";
 var nombreWindows = "";
+var errorWebService = "";
 
 $(document).ready(function () {
     $("#spnfiltro").hide();
@@ -109,7 +110,9 @@ $(document).ready(function () {
     }
     else {
         //Todo mejorar el mensaje en un dialogo
-        alert("Fallo el web service");
+        var tempModal = BootstrapDialog.alert("Fallo el webservice: " + errorWebService);
+        tempModal.setType(BootstrapDialog.TYPE_DANGER);
+        //alert("Fallo el web service");
     }
 });
 
@@ -317,118 +320,119 @@ function ObtenerIdsTFS() {
 // Lista elementos
 function listaControlesDiseñador() {
     try{
-        var formData = { callback: "87098", folio: "0" };
-            $.ajax({
-                type: 'POST',
-                url: "wsServicio.asmx/WebServiceMerida",
-                async: false,
-                contentType: "application/json; charset=ISO-8859-1",
-                dataType: "json",
-                success: function (data) {
-                    //console.log(data);
-                    var registros = JSON.parse(data.d);
-                    var filas = registros.rows;
+        $.ajax({
+            type: 'POST',
+            url: "wsServicio.asmx/WebServiceMerida",
+            async: false,
+            contentType: "application/json; charset=ISO-8859-1",
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);
+                //var json = JSON.stringify(data.d);
+                var registros = JSON.parse(data.d);
+                var filas = registros.rows;
 
-                    // Guardamos el JSON de las filas devueltas.
+                // Guardamos el JSON de las filas devueltas.
 
-                    $(window).data("rows", filas);
+                $(window).data("rows", filas);
 
-                    byKey(filas, "IDTicket");
+                byKey(filas, "IDTicket");
 
-                    var slcCampos = $("#nombreFiltro");
-                    $(slcCampos).html("");
+                var slcCampos = $("#nombreFiltro");
+                $(slcCampos).html("");
 
-                    var i = 0;
+                var i = 0;
 
-                    // Manda los encabezados de las columnas
-                    $.each(filas[0], function (identificador, valor) {
+                // Manda los encabezados de las columnas
+                $.each(filas[0], function (identificador, valor) {
 
-                        var trDinamico = $("#trdinamico");
-                        var th = document.createElement("th");
+                    var trDinamico = $("#trdinamico");
+                    var th = document.createElement("th");
 
-                        if ($.inArray(i, arrayColumnas) > -1) {
-                            arrayNombres.push(identificador);
-                        }
-                        else {
+                    if ($.inArray(i, arrayColumnas) > -1) {
+                        arrayNombres.push(identificador);
+                    }
+                    else {
 
-                        }
-                        arrayNombreColumnas.push(identificador);
+                    }
+                    arrayNombreColumnas.push(identificador);
 
-                        $(th).attr("data-visible-in-selection", "true");
-                        $(th).attr("data-filterable", "true");
-                        $(th).attr("data-searchable", "true");
+                    $(th).attr("data-visible-in-selection", "true");
+                    $(th).attr("data-filterable", "true");
+                    $(th).attr("data-searchable", "true");
 
-                        $(th).attr("data-column-id", identificador);
-                        $(th).attr("data-type", "numeric");
+                    $(th).attr("data-column-id", identificador);
+                    $(th).attr("data-type", "numeric");
+                    $(th).attr("data-header-css-class", "column");
+                    $(th).addClass("text-center");
+
+                    var option = document.createElement("option");
+
+                    $(option).text(identificador);
+                    $(option).val(identificador);
+
+                    $(slcCampos).append($(option));
+
+                    $(th).text(identificador);
+                    if (identificador === "Descripcion")
+                    {
+                        $(th).attr("data-formatter", "descripcion");
                         $(th).attr("data-header-css-class", "column");
-                        $(th).addClass("text-center");
+                    }
+                    if (identificador == window.identificador) {
+                        $(th).attr("data-formatter", "commands");
+                        $(th).attr("data-header-css-class", "column");
+                        //$(th).attr("data-identifier", "true");
 
-                        var option = document.createElement("option");
+                        var thn2 = document.createElement("th");
+                        $(thn2).attr("data-visible-in-selection", "true");
 
-                        $(option).text(identificador);
-                        $(option).val(identificador);
+                        $(thn2).attr("data-column-id", "IdTFS");
+                        //$(thn).attr("data-visible-in-selection", "true");
+                        //$(thn).attr("data-searchable", "true");
 
-                        $(slcCampos).append($(option));
+                        //$(thn).attr("data-type", "numeric");
+                        $(thn2).attr("data-header-css-class", "column");
+                        //$(thn).addClass("text-center");
+                        $(thn2).attr("data-formatter", "idTFS");
+                        $(thn2).attr("data-header-css-class", "column");
+                        $(thn2).text("IDTFS");
+                        $(trDinamico).prepend(thn2);
 
-                        $(th).text(identificador);
-                        if (identificador === "Descripcion")
-                        {
-                            $(th).attr("data-formatter", "descripcion");
-                            $(th).attr("data-header-css-class", "column");
-                        }
-                        if (identificador == window.identificador) {
-                            $(th).attr("data-formatter", "commands");
-                            $(th).attr("data-header-css-class", "column");
-                            //$(th).attr("data-identifier", "true");
+                        //crear columna acciones
+                        var thn = document.createElement("th");
+                        $(thn).attr("data-visible-in-selection", "true");
 
-                            var thn2 = document.createElement("th");
-                            $(thn2).attr("data-visible-in-selection", "true");
-
-                            $(thn2).attr("data-column-id", "IdTFS");
-                            //$(thn).attr("data-visible-in-selection", "true");
-                            //$(thn).attr("data-searchable", "true");
-
-                            //$(thn).attr("data-type", "numeric");
-                            $(thn2).attr("data-header-css-class", "column");
-                            //$(thn).addClass("text-center");
-                            $(thn2).attr("data-formatter", "idTFS");
-                            $(thn2).attr("data-header-css-class", "column");
-                            $(thn2).text("IDTFS");
-                            $(trDinamico).prepend(thn2);
-
-                            //crear columna acciones
-                            var thn = document.createElement("th");
-                            $(thn).attr("data-visible-in-selection", "true");
-
-                            $(thn).attr("data-column-id", "Acciones");
-                            //$(thn).attr("data-visible-in-selection", "true");
-                            //$(thn).attr("data-searchable", "true");
+                        $(thn).attr("data-column-id", "Acciones");
+                        //$(thn).attr("data-visible-in-selection", "true");
+                        //$(thn).attr("data-searchable", "true");
                         
-                            //$(thn).attr("data-type", "numeric");
-                            $(thn).attr("data-header-css-class", "column");
-                            //$(thn).addClass("text-center");
-                            $(thn).attr("data-formatter", "acciones");
-                            $(thn).attr("data-header-css-class", "column");
-                            $(thn).text("Acciones");
-                            $(trDinamico).prepend(thn);
-                            //fin crear columna acciones
-                        }
-                        if (identificador === "acciones") {
-                            $(th).attr("data-formatter", "acciones");
-                            $(th).attr("data-header-css-class", "column");
-                        }
-                        $(trDinamico).append(th);
-                        i++;
-                    });
-                },
-                error: function (xhr, status, result) {
-                    alert('Disculpe, existió un problema, estatus: ' + status + " detalle del error: " + result);
-                }
-            });
-        }
+                        //$(thn).attr("data-type", "numeric");
+                        $(thn).attr("data-header-css-class", "column");
+                        //$(thn).addClass("text-center");
+                        $(thn).attr("data-formatter", "acciones");
+                        $(thn).attr("data-header-css-class", "column");
+                        $(thn).text("Acciones");
+                        $(trDinamico).prepend(thn);
+                        //fin crear columna acciones
+                    }
+                    if (identificador === "acciones") {
+                        $(th).attr("data-formatter", "acciones");
+                        $(th).attr("data-header-css-class", "column");
+                    }
+                    $(trDinamico).append(th);
+                    i++;
+                });
+            },
+            error: function (xhr, status, result) {
+                alert('Disculpe, existió un problema, estatus: ' + status + " detalle del error: " + result);
+            }
+        });
+    }
     catch(e)
     {
         webServiceContesta = false;
+        errorWebService = e.message;
     }
 }
 
@@ -533,15 +537,22 @@ function init() {
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (result) {
-                                    if (result.d === "0") {
-                                        dialogRef.getModalBody().html('No se pudo crear el bug en el servicio Team Foundation Server, vuelta a intentar o contacte a su administrador. La ventana se cerrara automaticamente en 5 segundos.');
+                                    if (result.d.length > 5) {
+                                        dialogRef.getModalBody().html('Detalle del error: ' + result.d + '. La ventana se cerrara automaticamente en 5 segundos.');
+                                        dialogRef.setType(BootstrapDialog.TYPE_DANGER);
                                     }
                                     else {
-                                        dialogRef.getModalBody().html('Se ha creado el bug <a target="_blank" href="http://bot-tfs:8080/tfs/BOT/PDG/_workitems#id=' + result.d + '&triage=true&_a=edit">' + result.d + '</a>. La ventana se cerrara automaticamente en 10 segundos.');
-                                        IdsTFSyIdsSISU.push({ IdTicket: 0, idSISU: clicIdSISU, idTFS: result.d });
-                                        filtro = $(window).data("rows");
-                                        $("#grid").bootgrid("clear");
-                                        $("#grid").bootgrid("append", filtro);
+                                        if (result.d === "0") {
+                                            dialogRef.getModalBody().html('No se pudo crear el bug en el servicio Team Foundation Server, vuelta a intentar o contacte a su administrador. La ventana se cerrara automaticamente en 5 segundos.');
+                                            dialogRef.setType(BootstrapDialog.TYPE_DANGER);
+                                        }
+                                        else {
+                                            dialogRef.getModalBody().html('Se ha creado el bug <a target="_blank" href="http://bot-tfs:8080/tfs/BOT/PDG/_workitems#id=' + result.d + '&triage=true&_a=edit">' + result.d + '</a>. La ventana se cerrara automaticamente en 10 segundos.');
+                                            IdsTFSyIdsSISU.push({ IdTicket: 0, idSISU: clicIdSISU, idTFS: result.d });
+                                            filtro = $(window).data("rows");
+                                            $("#grid").bootgrid("clear");
+                                            $("#grid").bootgrid("append", filtro);
+                                        }
                                     }
                                     setTimeout(function () {
                                         dialogRef.close();
